@@ -30,7 +30,20 @@ const limiter = rateLimit({
 app.use("/api/", limiter); // Applies rate limiting to all API endpoints
 
 // CORS Configuration (Consider updating this to your frontend URL in production)
-app.use(cors({ origin: process.env.CLIENT_URL || "*" })); 
+// app.use(cors({ origin: process.env.CLIENT_URL || "*" })); 
+// app.use(express.json());
+
+// CORS Configuration
+app.use(cors({
+  origin: [
+    "https://tukiohub-front.vercel.app",
+    "http://localhost:5173"
+  ],
+  methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
+  allowedHeaders: ["Content-Type", "Authorization"],
+  credentials: true
+}));
+
 app.use(express.json());
 
 // Test route
